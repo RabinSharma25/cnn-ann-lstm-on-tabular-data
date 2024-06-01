@@ -35,14 +35,14 @@ model = Sequential([
     Conv1D(filters=64, kernel_size=1, activation='relu'),
     BatchNormalization(),
     MaxPooling1D(pool_size=2),
-    Dropout(0.5),
-    Conv1D(filters=128, kernel_size=1, activation='relu'),
+    Dropout(0.2),
+    Conv1D(filters=64, kernel_size=1, activation='relu'),
     BatchNormalization(),
     MaxPooling1D(pool_size=2),
-    Dropout(0.5),
+    Dropout(0.2),
     Flatten(),
-    Dense(128, activation='relu'),
-    Dropout(0.5),
+    Dense(64, activation='relu'),
+    Dropout(0.2),
     Dense(2, activation='softmax')
 ])
 
