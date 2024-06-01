@@ -5,6 +5,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dense, Dropout
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.layers import Input
 
 # Load the datasets
 data_path = 'data.csv'
@@ -30,13 +31,19 @@ X_train, X_test, y_train, y_test = train_test_split(data_reshaped, labels_encode
 
 # Define the CNN model
 model = Sequential([
-    Conv1D(filters=32, kernel_size=3, activation='relu', input_shape=(data_np.shape[1], 1)),
+    Input(shape=(data_np.shape[1], 1)),
+    Conv1D(filters=64, kernel_size=1, activation='relu'),
+    BatchNormalization(),
+    MaxPooling1D(pool_size=2),
+    Dropout(0.5),
+    Conv1D(filters=128, kernel_size=1, activation='relu'),
+    BatchNormalization(),
     MaxPooling1D(pool_size=2),
     Dropout(0.5),
     Flatten(),
-    Dense(64, activation='relu'),
+    Dense(128, activation='relu'),
     Dropout(0.5),
-    Dense(2, activation='softmax')  # Assuming two classes: 0 and 1
+    Dense(2, activation='softmax')
 ])
 
 # Compile the model
